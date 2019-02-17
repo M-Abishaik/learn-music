@@ -30,6 +30,9 @@
   let mediaStreamSource;
   let animationFrame;
 
+  let carnaticLesson = null;
+  let westernLesson  = null;
+
   // auto correlation constants and letiables
   // ===========================================================================
   let CORR_BUFFER_SIZE = 1024;
@@ -120,6 +123,7 @@
     if(!audioCtx){
         audioCtx = new AudioContext();
         musicPlayer.start(callback);
+        musicPlayer.fetchLesson();
     }
     if (!isPaused) {
       return; // already running
@@ -158,6 +162,19 @@
     isPaused = true;
   };
 
+  musicPlayer.fetchLesson() = async function() {
+    let raga=$("#ragas").val();
+    let lesson_name=$('#lesson_name').val();
+    let response  = fetch(
+        "/getLesson",{
+          body:JSON.stringify({
+            lesson_name: lesson_name,
+            raga: raga
+          })
+        }
+      );
+    confirm.log(response);
+  }
   
 
   function updatePitch() {
@@ -171,9 +188,6 @@
 
     animationFrame = requestAnimationFrame(updatePitch);
   }
-
-
-
   
 
   // Allow direct use in browser or through something like Browserify
@@ -202,8 +216,6 @@ let noteStrings = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "
 musicPlayer.onPitchChange(function(pitch) {
   if(pitch!=-1 && pitch<1600){
     let text      = api.noteFromPitch(pitch);
-    console.log(text);
-    //$('#note').text(frequency+' Hz');
-    //document.getElementById('pitch').innerHTML = text+": "+pitch;
+    console.log(pitch,text);
   }
 });
