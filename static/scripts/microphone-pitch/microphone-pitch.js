@@ -123,7 +123,7 @@
     if(!audioCtx){
         audioCtx = new AudioContext();
         musicPlayer.start(callback);
-        musicPlayer.fetchLesson();
+        //musicPlayer.fetchLesson();
     }
     if (!isPaused) {
       return; // already running
