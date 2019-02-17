@@ -116,7 +116,7 @@
     }
   };
   
-  musicPlayer.startApplication() =() =>{
+  musicPlayer.startApplication =() =>{
      musicPlayer.fetchLesson();
   }
   // start and pause functions
@@ -164,7 +164,7 @@
     isPaused = true;
   };
 
-  musicPlayer.fetchLesson() = async function() {
+  musicPlayer.fetchLesson = async function() {
     let raga=$("#ragas").val();
     let lesson_name=$('#lesson_name').val();
     let response  = fetch(
