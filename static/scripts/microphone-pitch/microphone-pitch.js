@@ -1,4 +1,4 @@
-(function(microphonePitch) {
+(function(musicPlayer) {
   'use strict';
 
   // utilities
@@ -105,7 +105,7 @@
 
   // event handler setters
   // ===========================================================================
-  microphonePitch.onPitchChange = function(handler) {
+  musicPlayer.onPitchChange = function(handler) {
     if (isFunction(handler)) {
       pitchChangeHandler = handler;
     } else {
@@ -116,10 +116,10 @@
 
   // start and pause functions
   // ===========================================================================
-  microphonePitch.start = function(callback) {
+  musicPlayer.start = function(callback) {
     if(!audioCtx){
         audioCtx = new AudioContext();
-        microphonePitch.start(callback);
+        musicPlayer.start(callback);
     }
     if (!isPaused) {
       return; // already running
@@ -147,7 +147,7 @@
     }, callback);
   };
 
-  microphonePitch.pause = function() {
+  musicPlayer.pause = function() {
     if (isPaused) {
       return; // not running, so nothing to do
     }
@@ -177,7 +177,7 @@
   
 
   // Allow direct use in browser or through something like Browserify
-})(typeof exports === 'undefined' ? this.microphonePitch = {} : exports);
+})(typeof exports === 'undefined' ? this.musicPlayer = {} : exports);
 
 let noteStrings = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
   let api = {
@@ -192,7 +192,7 @@ let noteStrings = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "
         return Math.floor(1200 * Math.log(frequency / this.frequencyFromNoteNumber(note)) / Math.log(2));
       },
       noteFromPitch: function noteFromPitch(frequency) {
-        console.log(frequency%12,Math.floor(frequency/12));
+        return(frequency%12,Math.floor(frequency/12));
         return noteStrings[this.noteNumberFromPitch(frequency) % 12];
       }
   };
@@ -200,14 +200,14 @@ let noteStrings = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "
 // register a listener to receive pitch info (in Hertz to 2 decimal points)
 // only one listener at a time - multiple calls override the previous listener
 // if a pitch cannot be detected, a value of -1 will be passed
-microphonePitch.onPitchChange(function(pitch) {
+musicPlayer.onPitchChange(function(pitch) {
   if(pitch!=-1 && pitch<1600){
     let note      = api.noteNumberFromPitch(pitch);
     let frequency = api.frequencyFromNoteNumber(note);
     let cents     = api.centsOffFromPitch(frequency,note);
     let text      = api.noteFromPitch(frequency);
-    console.log(note,frequency,cents,text);
-    $('#note').text(frequency+' Hz');
+    console.log(text);
+    //$('#note').text(frequency+' Hz');
     //document.getElementById('pitch').innerHTML = text+": "+pitch;
   }
 });
