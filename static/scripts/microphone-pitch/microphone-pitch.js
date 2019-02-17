@@ -96,6 +96,8 @@
   // ===========================================================================
   function processStream(stream) {
     mediaStreamSource = audioCtx.createMediaStreamSource(stream);
+    volume = mediaStreamSource.createGainNode();
+    console.log('volume: ',volume.gain.value);
     analyser = audioCtx.createAnalyser();
     analyser.fftSize = 2048;
     mediaStreamSource.connect(analyser);
@@ -119,7 +121,6 @@
   microphonePitch.start = function(callback) {
     if(!audioCtx){
         audioCtx = new AudioContext();
-        console.log(audioCtx.createGainNode());
         microphonePitch.start(callback);
     }
     if (!isPaused) {
