@@ -177,7 +177,7 @@
           })
         }
       );
-    confirm.log(response);
+    console.log(response);
   }
   
 
