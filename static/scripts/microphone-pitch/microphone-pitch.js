@@ -119,6 +119,7 @@
   microphonePitch.start = function(callback) {
     if(!audioCtx){
         audioCtx = new AudioContext();
+        console.log(audioCtx);
         microphonePitch.start(callback);
     }
     if (!isPaused) {
