@@ -116,14 +116,16 @@
     }
   };
   
-
+  musicPlayer.startApplication() =() =>{
+     musicPlayer.fetchLesson();
+  }
   // start and pause functions
   // ===========================================================================
   musicPlayer.start = function(callback) {
     if(!audioCtx){
         audioCtx = new AudioContext();
         musicPlayer.start(callback);
-        //musicPlayer.fetchLesson();
+        
     }
     if (!isPaused) {
       return; // already running
@@ -193,23 +195,25 @@
   // Allow direct use in browser or through something like Browserify
 })(typeof exports === 'undefined' ? this.musicPlayer = {} : exports);
 
+
+//frequency to note conversions
 let noteStrings = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-  let api = {
-      noteNumberFromPitch: function noteFromPitch(frequency) {
-        var noteNum = 12 * (Math.log(frequency / 440) / Math.log(2));
-        return Math.round(noteNum) + 69;
-      },
-      frequencyFromNoteNumber: function frequencyFromNoteNumber(note) {
-        return 440 * Math.pow(2, (note - 69) / 12);
-      },
-      centsOffFromPitch: function centsOffFromPitch(frequency, note) {
-        return Math.floor(1200 * Math.log(frequency / this.frequencyFromNoteNumber(note)) / Math.log(2));
-      },
-      noteFromPitch: function noteFromPitch(frequency) {
-        return noteStrings[this.noteNumberFromPitch(frequency) % 12]+(Math.floor(this.noteNumberFromPitch(frequency) / 12)-1);
-      }
-  };
-  
+let api = {
+    noteNumberFromPitch: function noteFromPitch(frequency) {
+      var noteNum = 12 * (Math.log(frequency / 440) / Math.log(2));
+      return Math.round(noteNum) + 69;
+    },
+    frequencyFromNoteNumber: function frequencyFromNoteNumber(note) {
+      return 440 * Math.pow(2, (note - 69) / 12);
+    },
+    centsOffFromPitch: function centsOffFromPitch(frequency, note) {
+      return Math.floor(1200 * Math.log(frequency / this.frequencyFromNoteNumber(note)) / Math.log(2));
+    },
+    noteFromPitch: function noteFromPitch(frequency) {
+      return noteStrings[this.noteNumberFromPitch(frequency) % 12]+(Math.floor(this.noteNumberFromPitch(frequency) / 12)-1);
+    }
+};
+
 // register a listener to receive pitch info (in Hertz to 2 decimal points)
 // only one listener at a time - multiple calls override the previous listener
 // if a pitch cannot be detected, a value of -1 will be passed
@@ -219,3 +223,5 @@ musicPlayer.onPitchChange(function(pitch) {
     console.log(pitch,text);
   }
 });
+
+
