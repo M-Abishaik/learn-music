@@ -192,7 +192,7 @@ let noteStrings = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "
         return Math.floor(1200 * Math.log(frequency / this.frequencyFromNoteNumber(note)) / Math.log(2));
       },
       noteFromPitch: function noteFromPitch(frequency) {
-        return(frequency%12,Math.floor(frequency/12));
+        return [frequency%12,Math.floor(frequency/12)];
         return noteStrings[this.noteNumberFromPitch(frequency) % 12];
       }
   };
@@ -206,7 +206,7 @@ musicPlayer.onPitchChange(function(pitch) {
     let frequency = api.frequencyFromNoteNumber(note);
     let cents     = api.centsOffFromPitch(frequency,note);
     let text      = api.noteFromPitch(frequency);
-    console.log(frequency,text);
+    console.log(frequency,text[0],text[1]);
     //$('#note').text(frequency+' Hz');
     //document.getElementById('pitch').innerHTML = text+": "+pitch;
   }
