@@ -192,7 +192,7 @@ let noteStrings = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "
         return Math.floor(1200 * Math.log(frequency / this.frequencyFromNoteNumber(note)) / Math.log(2));
       },
       noteFromPitch: function noteFromPitch(frequency) {
-        return noteStrings[this.noteNumberFromPitch(frequency) % 12]+Math.floor(this.noteNumberFromPitch(frequency) / 12);
+        return noteStrings[this.noteNumberFromPitch(frequency) % 12]+(Math.floor(this.noteNumberFromPitch(frequency) / 12)-1);
       }
   };
   
@@ -201,11 +201,8 @@ let noteStrings = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "
 // if a pitch cannot be detected, a value of -1 will be passed
 musicPlayer.onPitchChange(function(pitch) {
   if(pitch!=-1 && pitch<1600){
-    let note      = api.noteNumberFromPitch(pitch);
-    let frequency = api.frequencyFromNoteNumber(note);
-    let cents     = api.centsOffFromPitch(frequency,note);
-    let text      = api.noteFromPitch(frequency);
-    console.log(frequency,text);
+    let text      = api.noteFromPitch(pitch);
+    console.log(text);
     //$('#note').text(frequency+' Hz');
     //document.getElementById('pitch').innerHTML = text+": "+pitch;
   }
