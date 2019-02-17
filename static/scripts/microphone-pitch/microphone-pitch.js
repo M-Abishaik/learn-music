@@ -33,6 +33,25 @@
   let carnaticLesson = null;
   let westernLesson  = null;
 
+  let freqTable;
+  let music_notes=[];
+  let unique_notes=[];
+  let timer = null;
+
+  let music_play_note=null;
+  let carnatic_music_notes=null;
+
+  let repetation=3;
+  let tmp_repeatation=0;
+  let left_node_mistake=0;
+  let right_node_mistake=0;
+  let swarasCount=0;
+  let swaraIndex=0;
+  let currentIndex=0;
+  let PrevIndex=null;
+  let _shruti=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+  let endSwaraFlag;
+
   // auto correlation constants and letiables
   // ===========================================================================
   let CORR_BUFFER_SIZE = 1024;
@@ -116,9 +135,6 @@
     }
   };
   
-  musicPlayer.startApplication =async function(){
-    musicPlayer.fetchLesson();
-  }
   // start and pause functions
   // ===========================================================================
   musicPlayer.start = function(callback) {
@@ -167,19 +183,105 @@
   musicPlayer.fetchLesson = async function() {
     let raga=$("#ragas").val();
     let lesson_name=$('#lesson_name').val();
-    let response  = fetch(
+    let shruti=$('#SHRUTI').val();
+		let scale =$('#SCALE').val();
+    let response  =await fetch(
         "/getLesson",
         {
-          method: 'PUT',
+          method: 'post',
           body:JSON.stringify({
             lesson_name: lesson_name,
-            raga: raga
-          })
+            raga: raga,
+            shruti: shruti,
+            scale: scale
+          }),
+          headers:{
+            "Content-Type": "application/json"
+          },
         }
       );
-    console.log(response);
+    response = await response.json();
+    return response;
   }
+
+  musicPlayer.startApplication =async function(){
+    let lesson = await musicPlayer.fetchLesson()
+    $.getJSON('./static/scripts/notes.json', function (data) {
+      freqTable = data['440'];
+    });
+    console.log(lesson);
+    carnaticLesson = lesson['carnatic_lesson'];
+    westernLesson  = lesson['western_lesson'];
+    $(".box").show();
+    $('#micButton').attr("disabled", true);
+    musicPlayer.pause();
+    musicPlayer.PlayLesson(0);
+  }
+
   
+  //start playing onces notes are fetched from server
+  musicPlayer.PlayLesson =function(index){
+      // console.log(index);
+      if(index >= carnaticLesson.length){
+        $('._start').text('Start');
+				$(".box").hide();
+				$('#congrats').show();
+				return;
+				
+      }
+      else{
+        $('._play').show();
+			  $('._listen').hide();
+        notes = carnaticLesson[index];
+        console.log('Notes',notes);
+        musicPlayer.playnotes(notes,index);
+      }
+      
+  }
+
+
+
+  //playes notes;
+  musicPlayer.playnotes = async function(notes,index){
+    notes = notes.split(' ');
+    let i=0;
+    let  url=$('#base_addr').val()+'/static/Audio/B/'+notes[i]+'.wav';
+    $('#play_note').text(notes[i]);
+    console.log('playing note: ',notes[i]);
+    let audio=new Audio(url);
+    audio.play();
+    audio.onended=function(){
+        i++;
+        console.log(i,notes);
+        if(i<notes.length){
+          $('#play_note').text(notes[i]);
+          console.log('playing note: ',notes[i]);
+          url=$('#base_addr').val()+'/static/Audio/B/'+notes[i]+'.wav';
+          audio.src = url;
+          audio.play();
+          
+        }
+        else{
+          musicPlayer.listen(index);
+        }
+    };
+    
+  }
+
+  musicPlayer.listen = async function(index){
+    $('._play').hide();
+    $('._listen').show();
+    musicPlayer.start(debug => console.log(debug));
+    currentIndex=index;
+    music_play_note      = westernLesson[index].split(' ');
+    carnatic_music_notes = carnaticLesson[index].split(' ');
+    swarasCount=notes.length;
+    swaraIndex=0;
+    $('#nextnote').text(carnatic_music_notes[swaraIndex]+' ('+music_play_note[swaraIndex]+')');
+    
+			
+  }
+
 
   function updatePitch() {
     analyser.getFloatTimeDomainData(corrBuffer);
@@ -193,6 +295,26 @@
     animationFrame = requestAnimationFrame(updatePitch);
   }
   
+  // register a listener to receive pitch info (in Hertz to 2 decimal points)
+  // only one listener at a time - multiple calls override the previous listener
+  // if a pitch cannot be detected, a value of -1 will be passed
+  musicPlayer.onPitchChange(function(pitch) {
+    if(pitch!=-1 && pitch<1600){
+      let note      = api.noteFromPitch(pitch);
+      $('#note').text(note);
+      music_notes.push(note);
+      
+      let requiredSwaraFreq=12*parseInt(music_play_note[swaraIndex].slice(-1))+_shruti.indexOf(music_play_note[swaraIndex].slice(0,-1));
+          requiredSwaraFreq=freqTable[requiredSwaraFreq]['frequency'];
+      let swarapercent=pitch/requiredSwaraFreq*50;
+      updateGaugeScale(swarapercent);      
+    }
+    else{
+      updateGaugeScale(0);
+    }
+  });
+
+
 
   // Allow direct use in browser or through something like Browserify
 })(typeof exports === 'undefined' ? this.musicPlayer = {} : exports);
@@ -202,7 +324,7 @@
 let noteStrings = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 let api = {
     noteNumberFromPitch: function noteFromPitch(frequency) {
-      var noteNum = 12 * (Math.log(frequency / 440) / Math.log(2));
+      let noteNum = 12 * (Math.log(frequency / 440) / Math.log(2));
       return Math.round(noteNum) + 69;
     },
     frequencyFromNoteNumber: function frequencyFromNoteNumber(note) {
@@ -216,14 +338,9 @@ let api = {
     }
 };
 
-// register a listener to receive pitch info (in Hertz to 2 decimal points)
-// only one listener at a time - multiple calls override the previous listener
-// if a pitch cannot be detected, a value of -1 will be passed
-musicPlayer.onPitchChange(function(pitch) {
-  if(pitch!=-1 && pitch<1600){
-    let text      = api.noteFromPitch(pitch);
-    console.log(pitch,text);
-  }
-});
 
+function updateGaugeScale(value) {
+  $('#scale').text((value));
+  $('#scale').trigger('click');
+};
 

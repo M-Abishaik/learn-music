@@ -6,9 +6,9 @@ lessons={
 	"lesson1":["s", "r", "g", "m"],
 	"lesson2":["s", "r", "g", "m","p","d","n","s"]
 }
-#base_addr="http://127.0.0.1:5000"
-base_addr="https://playmusicapp.herokuapp.com"
-base_addr="http://192.168.43.125:5000"
+base_addr="http://127.0.0.1:5000"
+# base_addr="https://playmusicapp.herokuapp.com"
+# base_addr="http://192.168.43.125:5000"
 app=Flask('__name__')
 @app.route('/')
 def home():
@@ -55,4 +55,4 @@ def getLesson():
 	return jsonify(carnatic_lesson=carnatic_lesson,western_lesson=western_lesson)
 
 if __name__=="__main__":
-	app.run(debug=True,host="192.168.43.125",port=5000)
+	app.run(debug=True)#,host="192.168.43.125",port=5000)
