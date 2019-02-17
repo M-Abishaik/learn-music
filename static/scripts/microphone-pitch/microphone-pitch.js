@@ -209,7 +209,6 @@
     $.getJSON('./static/scripts/notes.json', function (data) {
       freqTable = data['440'];
     });
-    console.log(lesson);
     carnaticLesson = lesson['carnatic_lesson'];
     westernLesson  = lesson['western_lesson'];
     $(".box").show();
@@ -232,7 +231,7 @@
       else{
         $('._play').show();
 			  $('._listen').hide();
-        notes = carnaticLesson[index];
+        let notes = carnaticLesson[index];
         console.log('Notes',notes);
         musicPlayer.playnotes(notes,index);
       }
