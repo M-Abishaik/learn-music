@@ -206,7 +206,7 @@ musicPlayer.onPitchChange(function(pitch) {
     let frequency = api.frequencyFromNoteNumber(note);
     let cents     = api.centsOffFromPitch(frequency,note);
     let text      = api.noteFromPitch(frequency);
-    console.log(text);
+    console.log(frequency,text);
     //$('#note').text(frequency+' Hz');
     //document.getElementById('pitch').innerHTML = text+": "+pitch;
   }
