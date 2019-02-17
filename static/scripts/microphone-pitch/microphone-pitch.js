@@ -97,7 +97,7 @@
   function processStream(stream) {
     mediaStreamSource = audioCtx.createMediaStreamSource(stream);
     //volume = mediaStreamSource.createGainNode();
-    console.log('volume: ',mediaStreamSource)//volume.gain.value);
+    console.log('volume: ',mediaStreamSource.context)//volume.gain.value);
     analyser = audioCtx.createAnalyser();
     analyser.fftSize = 2048;
     mediaStreamSource.connect(analyser);
