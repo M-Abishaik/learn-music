@@ -1,0 +1,26 @@
+:root{
+	--background_img:"http://192.168.43.125:8000/static/images/home.png";
+}
+._background{
+	background-image: url("https://playmusicapp.herokuapp.com/static/images/attachment1.jpg");
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+.btns{
+	padding-left:1.5em;
+	font-size: 1.2em;
+	padding-right: 1.5em;
+	background-color: rgba(77, 29, 173, 1) !important;
+	border-radius: 50px !important;
+}
+.back{
+	position: absolute;
+	left: 0;
+	border-bottom-right-radius: 30px !important;
+	border-top-right-radius: 30px !important;
+	padding-right: 20px;
+}
+.primary{
+	color: rgba(77, 29, 173, 1) !important;
+}
+

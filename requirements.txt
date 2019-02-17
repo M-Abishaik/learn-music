@@ -1,0 +1,10 @@
+Flask
+gunicorn
+Flask-SQLAlchemy
+Flask-Migrate
+Flask-Script
+psycopg2-binary
+mysqlclient
+flask-cors
+Flask-Session
+
