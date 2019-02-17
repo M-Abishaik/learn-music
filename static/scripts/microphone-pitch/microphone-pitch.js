@@ -193,6 +193,7 @@ let noteStrings = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "
         return Math.floor(1200 * Math.log(frequency / this.frequencyFromNoteNumber(note)) / Math.log(2));
       },
       noteFromPitch: function noteFromPitch(frequency) {
+        console.log(frequency%12,Math.floor(frequency/12));
         return noteStrings[this.noteNumberFromPitch(frequency) % 12];
       }
   };
