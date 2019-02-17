@@ -122,7 +122,7 @@
     if(!audioCtx){
         audioCtx = new AudioContext();
         let gain = audioCtx.createGain();
-        console.log(gain);
+        console.log(gain.gain.value);
         microphonePitch.start(callback);
     }
     if (!isPaused) {
