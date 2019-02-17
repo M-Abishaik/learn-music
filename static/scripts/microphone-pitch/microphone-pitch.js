@@ -96,7 +96,6 @@
   // ===========================================================================
   function processStream(stream) {
     mediaStreamSource = audioCtx.createMediaStreamSource(stream);
-    console.log('volume: ',mediaStreamSource)//volume.gain.value);
     analyser = audioCtx.createAnalyser();
     analyser.fftSize = 2048;
     mediaStreamSource.connect(analyser);
@@ -207,7 +206,7 @@ microphonePitch.onPitchChange(function(pitch) {
     let frequency = api.frequencyFromNoteNumber(note);
     let cents     = api.centsOffFromPitch(frequency,note);
     let text      = api.noteFromPitch(frequency);
-    //console.log(note,frequency,cents,text);
+    console.log(note,frequency,cents,text);
     $('#note').text(frequency+' Hz');
     //document.getElementById('pitch').innerHTML = text+": "+pitch;
   }
