@@ -23,4 +23,6 @@
 .primary{
 	color: rgba(77, 29, 173, 1) !important;
 }
-
+.box{
+	display: none;
+}
