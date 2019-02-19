@@ -42,16 +42,24 @@ nav ul li{
 }
 nav a.active{
 	font-weight: bold;
-	font-size: 3.2em
+	font-size: 22px
 }
 .bar{
 	position: absolute;
 	color: white;
-	font-size: 3em;
+	font-size: 22px;
 	right: 3%;
 	top: 50%;
 	transform: translate(0%,-50%);
 }
 .bar:hover{
 	cursor: pointer;
+}
+@media(max-width: 991.98px){
+	nav a.active{
+		font-size: 3.7em
+	}
+	.bar{
+		font-size: 3.7em
+	}
 }
