@@ -1,7 +1,10 @@
 from flask import Flask,render_template,jsonify,request
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import desc,func
 from musical_functions import Build_Notes,Construct_svaras
 from Melakarta_ragas import Melakarta_Ragas
-import json
+import json,os
+
 lessons={
 	"lesson1":["s", "r", "g", "m"],
 	"lesson2":["s", "r", "g", "m","p","d","n","s"]
@@ -10,7 +13,11 @@ lessons={
 base_addr="https://playmusicapp1.herokuapp.com"
 
 # base_addr="http://192.168.43.125:5000"
+
 app=Flask('__name__')
+app.config['SQLALCHEMY_DATABASE_URI']=os.getenv('DATABASE_URL')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=True
+
 @app.route('/')
 def home():
 	return render_template('index.html')
