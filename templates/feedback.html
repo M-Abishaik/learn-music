@@ -49,25 +49,29 @@
 				<div class="form_container">
                         <form  id="login_form">
                                 <div class="field">
-                                    <input type="text" name="username" class="form-control"/>
-                                    <label>Username</label>
+                                    <input type="text" name="name" class="form-control"/>
+                                    <label>name</label>
                                     <i class="fas fa-user"></i>
                                 </div>
                                 <div class="field">
-                                    <input type="password" name="password" class="form-control"/>
-                                    <label>Password</label>
-                                    <i class="fas fa-lock"></i>
-                                    <i class="password-icon far fa-eye-slash" data-focus="0" form-id="login_form" onclick="changePasswordtype(this)"></i>
+                                    <input type="email" name="email" class="form-control"/>
+                                    <label>email</label>
+                                    <i class="fas fa-envelope"></i>
                                 </div>
                                 <div class="field">
-                                   <center><input type="submit" class="primary-btn" value="Login"/></center> 
+                                    <input type="number" name="mobile" class="form-control"/>
+                                    <label>Mobile #</label>
+                                    <i class="fas fa-phone"></i>
                                 </div>
                                 <div class="descripion">
-                                        <label for="descripion">Description</label>
-                                        <i class="far fa-trash-alt delete"></i><br>
-                                        <textarea rows="14" name="description" id="description" note-id="" flag="1" placeholder=""></textarea>                                    
+                                        <label for="descripion">FeedBack</label>
+                                        <textarea rows="10" name="description" id="description" note-id="" flag="1" placeholder=""></textarea>                                    
                                         <!-- <input type="hidden" id='_id' value="" name="_id""/> -->
                                 </div>
+                                <div class="field">
+                                        <center><input type="submit" class="primary-btn" value="Submit"/></center> 
+                                </div>
+                                     
                             </form>            
 				</div>
 			</div>
