@@ -5,6 +5,7 @@
 	background-image: url("https://playmusicapp.herokuapp.com/static/images/attachment1.jpg");
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
+	padding: unset;
 }
 .btns{
 	padding-left:1.5em;
@@ -25,4 +26,32 @@
 }
 .box{
 	display: none;
+}
+nav{
+	position: relative;
+}
+nav ul{
+	margin: unset;
+	padding: 3px 10px;
+	list-style: none;
+	background-color: rgba(77, 29, 173, 1);
+	color: white;
+}
+nav ul li{
+	display: inline-block;
+}
+nav a.active{
+	font-weight: bold;
+	font-size: 1.5em;
+}
+.bar{
+	position: absolute;
+	color: white;
+	font-size: 22px;
+	right: 3%;
+	top: 50%;
+	transform: translate(0%,-50%);
+}
+.bar:hover{
+	cursor: pointer;
 }
