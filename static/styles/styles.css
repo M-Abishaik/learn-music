@@ -36,13 +36,16 @@ nav ul{
 	list-style: none;
 	background-color: rgba(77, 29, 173, 1);
 	color: white;
+	font-family: Arial, sans-serif;
 }
 nav ul li{
 	display: inline-block;
 }
 nav a.active{
-	font-weight: bold;
-	font-size: 22px
+	/* font-weight: bold; */
+	font-size: 22px;
+	color: white;
+	text-decoration: none;
 }
 .bar{
 	position: absolute;
@@ -61,7 +64,7 @@ nav a.active{
 .menu{
 	position: absolute;
 	right:  0%;
-	min-width: 200px;
+	min-width: 300px;
 	display: none;
 }
 
@@ -86,4 +89,5 @@ nav a.active{
 	.bar{
 		font-size: 3.7em
 	}
+
 }
