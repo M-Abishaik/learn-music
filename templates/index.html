@@ -41,7 +41,15 @@
 					<ul>
 						<li><a class="active">Learn Music</a></li>
 					</ul>
-					<div class="bar"><i class="fas fa-bars"></i></div>
+					<div id="bar" class="bar" type="bar"><i class="fas fa-bars"></i>
+						<div class="menu">
+							<div class="triangle"></div>
+							<ul>
+								<li>FeedBack</li>
+								<li>Login</li>
+							</ul>
+						</div>
+					</div>
 				</nav>
 				<div style="margin-top: 85vh;margin-left: 5vw;">
 					
@@ -51,5 +59,17 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		let bar = document.getElementById('bar');
+		bar.addEventListener('click',function(event){ 
+			let element = event.target.parentNode;
+			let type = element.getAttribute('type');
+			console.log(element);
+			if(type){
+				element.classList.toggle('show');
+				console.log(element);
+			}
+		})
+	</script>
 </body>
 </html>

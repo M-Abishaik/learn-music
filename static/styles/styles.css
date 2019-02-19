@@ -50,10 +50,34 @@ nav a.active{
 	font-size: 22px;
 	right: 3%;
 	top: 50%;
+	padding: 20px 0px;
+	box-sizing: border-box;
 	transform: translate(0%,-50%);
 }
 .bar:hover{
 	cursor: pointer;
+}
+
+.menu{
+	position: absolute;
+	right:  0%;
+	min-width: 200px;
+	display: none;
+}
+
+.menu > ul{
+	padding: unset;
+	border-left: 1px solid white;
+	border-right: 1px solid white;
+}
+
+.menu > ul >li{
+	display: block;
+	padding: 10px 10px;
+	border-bottom: 1px solid white;
+}
+.bar.show .menu{
+	display: block;	
 }
 @media(max-width: 991.98px){
 	nav a.active{
