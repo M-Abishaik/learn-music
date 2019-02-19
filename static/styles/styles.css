@@ -83,7 +83,7 @@ a.active,a{
 .bar.show .menu{
 	display: block;	
 }
-@media(max-width: 991.98px){
+/* @media(max-width: 991.98px){
 	nav a.active{
 		font-size: 3.7em
 	}
@@ -91,4 +91,4 @@ a.active,a{
 		font-size: 3.7em
 	}
 
-}
+} */
