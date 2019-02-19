@@ -5,8 +5,10 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 	<title>Music App</title>
 	 <meta charset="UTF-8">
-	 <link rel="stylesheet" type="text/css" href="./static/styles/bootstrap.min.css">
-	 <link rel="stylesheet" type="text/css" href="./static/styles/styles.css">
+     <link rel="stylesheet" type="text/css" href="./static/styles/bootstrap.min.css">
+     <link rel="stylesheet" type="text/css" href="./static/styles/form.css"> 
+     <link rel="stylesheet" type="text/css" href="./static/styles/styles.css">
+     <link rel="stylesheet" type="text/css" href="./static/styles/feedback.css">
 	 <script type="text/javascript" src="./static/scripts/jquery-3.3.1.min.js"></script>
 	 <script type="text/javascript" src="./static/scripts/jquery.redirect.js"></script>
 	 <script type="text/javascript" src="./static/statics/bootstrap.min.js"></script>
@@ -21,22 +23,14 @@
 			._select{
 				height: 3.8em;
 			}
-			.bars{
-				height: 60px;
-			}	
 		}
 	 </style>
-	 <script type="text/javascript">
-	 	function load_lesson(lesson_name){
-	 		
-	 		$.redirect('/lesson',{lesson_name:lesson_name},"POST","_self");
-	 	}
-	 </script>
+	 
 </head>
 <body >
 	<div class="container-fluid">
 		<div class="row justify-content-center" style="background-color: rgba(255, 67, 88, 0.1)">
-			<div class="col-md-12 col-lg-4 vh-100 _background">
+			<div class="col-md-12 col-lg-4 vh-100 background">
 				<nav >
 					<ul>
 						<li><a class="active" href="/">Learn Music</a></li>
@@ -51,10 +45,23 @@
 						</div>
 					</div>
 				</nav>
-				<div style="margin-top: 85vh;margin-left: 5vw;">
-					
-					<button class="btn btn-primary btns" onclick="load_lesson('lesson1')">Lesson 1</button>&emsp;
-					<button class="btn btn-primary btns" onclick="load_lesson('lesson2')">Lesson 2</button>
+				<div class="form_container">
+                        <form  id="login_form">
+                                <div class="field">
+                                    <input type="text" name="username" class="form-control"/>
+                                    <label>Username</label>
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="field">
+                                    <input type="password" name="password" class="form-control"/>
+                                    <label>Password</label>
+                                    <i class="fas fa-lock"></i>
+                                    <i class="password-icon far fa-eye-slash" data-focus="0" form-id="login_form" onclick="changePasswordtype(this)"></i>
+                                </div>
+                                <div class="field">
+                                   <center><input type="submit" class="primary-btn" value="Login"/></center> 
+                                </div>
+                            </form>            
 				</div>
 			</div>
 		</div>

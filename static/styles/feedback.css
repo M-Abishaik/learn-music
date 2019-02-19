@@ -1,0 +1,25 @@
+.background{
+    background-color: white;
+    padding: unset;
+}
+
+.descripion{
+    width: 80%;
+    position: relative;
+    left: 10%;
+    
+}
+.descripion label{
+    font-family: sans-serif;
+    font-size: 20px;
+}
+#description{
+    margin-top: 10px;
+    width: 100%;
+    border: 2px solid #a897ff;
+    font-size: 20px;
+    font-family: sans-serif
+}
+#description:focus{
+    border: 2px solid #b39ddb;
+}

@@ -23,9 +23,13 @@ db = SQLAlchemy(app)
 @app.route('/')
 def home():
 	return render_template('index.html')
-@app.route('/sample')
-def sample():
-	return render_template('sample.html')
+@app.route('/feedback')
+def feedback():
+	return render_template('feedback.html')
+
+@app.route('/login')
+def login():
+	return render_template('login.html')
 
 @app.route('/lesson',methods=['POST','GET'])
 def lesson():

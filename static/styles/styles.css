@@ -41,7 +41,7 @@ nav ul{
 nav ul li{
 	display: inline-block;
 }
-nav a.active{
+a.active,a{
 	/* font-weight: bold; */
 	font-size: 22px;
 	color: white;
@@ -66,6 +66,7 @@ nav a.active{
 	right:  0%;
 	min-width: 300px;
 	display: none;
+	z-index: 100;
 }
 
 .menu > ul{
