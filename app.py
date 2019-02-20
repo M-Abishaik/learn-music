@@ -56,7 +56,7 @@ def login():
 		if((data['username']=='') or (data['password']=='')):
 			return render_template('login.html',message='invalid username or password')
 		else:
-			user=db.session.query(Users).filter(Users.email == data.username).first()
+			user=db.session.query(Users).filter(Users.email == data['username']).first()
 			if user and user.verify_password(data['password']):
 				return render_template('review.html',username=data['username'],password=data['password'])
 			else:
