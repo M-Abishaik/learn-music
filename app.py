@@ -34,7 +34,7 @@ def feedback():
 		return render_template('feedback.html')
 	else:
 		from data_models import FeedBack
-		data = dict(request.form)
+		data = dict(request.form.json)
 		if(('email' not in data) or ('mobile' not in data) or ('name' not in data) or ('description' not in data)):
 			return render_template('feedback.html',message='invalid schema')
 		if((data['name']=='') or (data['mobile']=='') or (data['email']=='') or (data['description']=='')):
@@ -51,13 +51,13 @@ def login():
 		return render_template('login.html',message=None)
 	else:
 		from data_models import Users,FeedBack
-		data = dict(request.form)
+		data = dict(request.form.json)
 		if(('username' not in data) or ('password' not in data)):
 			return render_template('login.html',message='invalid schema')
 		if((data['username']=='') or (data['password']=='')):
 			return render_template('login.html',message='invalid username or password')
 		else:
-			username = data['username'][0]
+			# username = data['username'][0]
 			print(username)
 			user=db.session.query(Users).filter(Users.email == username).first()
 			if user and user.verify_password(data['password']):
