@@ -29,12 +29,13 @@
 }
 nav{
 	position: relative;
+	background-color: rgba(77, 29, 173, 1);
+	text-align: left;
 }
 nav ul{
 	margin: unset;
-	padding: 3px 10px;
+	padding: 3px 23px;
 	list-style: none;
-	background-color: rgba(77, 29, 173, 1);
 	color: white;
 	font-family: Arial, sans-serif;
 }
@@ -48,36 +49,32 @@ a.active,a{
 	text-decoration: none;
 }
 .bar{
-	position: absolute;
+	display: inline-block;
+	position: relative;
 	color: white;
 	font-size: 22px;
-	right: 3%;
-	top: 50%;
+	left:  90%;
 	padding: 20px 0px;
 	box-sizing: border-box;
-	transform: translate(0%,-50%);
+	transform: translate(0%,-80%);
 }
 .bar:hover{
 	cursor: pointer;
 }
 
 .menu{
-	position: absolute;
-	right:  0%;
-	min-width: 300px;
 	display: none;
-	z-index: 100;
+	width: 90%;
 }
 
 .menu > ul{
-	padding: unset;
-	border-left: 1px solid white;
-	border-right: 1px solid white;
+	padding: 5px 0px;
+	box-sizing: border-box;
 }
 
 .menu > ul >li{
 	display: block;
-	padding: 10px 10px;
+	/* padding: 10px 10px; */
 	border-bottom: 1px solid white;
 }
 .bar.show .menu{

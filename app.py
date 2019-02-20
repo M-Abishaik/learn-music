@@ -10,7 +10,7 @@ lessons={
 	"lesson2":["s", "r", "g", "m","p","d","n","s"]
 }
 # base_addr="http://127.0.0.1:5000"
-base_addr="https://playmusicapp1.herokuapp.com"
+base_addr="https://learnmusic.herokuapp.com"
 
 # base_addr="http://192.168.43.125:5000"
 
