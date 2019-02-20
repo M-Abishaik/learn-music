@@ -19,7 +19,7 @@ class Users(db.Model):
         return generate_password_hash(password)
 
     def verify_password(self, password):
-        return check_password_hash(password,self.password)
+        return check_password_hash(self.password,password)
 
 
     def __init__(self,password,name,email,mobile_no):
