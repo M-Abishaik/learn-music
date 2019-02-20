@@ -4,6 +4,7 @@ from sqlalchemy import desc,func
 from musical_functions import Build_Notes,Construct_svaras
 from Melakarta_ragas import Melakarta_Ragas
 import json,os
+from data_models import FeedBack,Users
 
 lessons={
 	"lesson1":["s", "r", "g", "m"],
@@ -16,7 +17,7 @@ base_addr="https://learnmusic.herokuapp.com"
 
 app=Flask('__name__')
 # app.config['SQLALCHEMY_DATABASE_URI']=os.getenv('DATABASE_URL','mysql://user:user@localhost/test')
-app.config['SQLALCHEMY_DATABASE_URI']=os.getenv('DATABASE_URL','postgres://alioqrrukzmeri:f442afdd37d8bd3f252a8178d1b96a7c276b41b6bee6972024c7bdb33ca74ac9@ec2-23-21-130-182.compute-1.amazonaws.com:5432/dkksbh8v27li8')
+app.config['SQLALCHEMY_DATABASE_URI']=os.getenv('DATABASE_URL')#,'postgres://alioqrrukzmeri:f442afdd37d8bd3f252a8178d1b96a7c276b41b6bee6972024c7bdb33ca74ac9@ec2-23-21-130-182.compute-1.amazonaws.com:5432/dkksbh8v27li8')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=True
 db = SQLAlchemy(app)
 
@@ -32,7 +33,7 @@ def feedback():
 	if(request.method == 'GET'):
 		return render_template('feedback.html')
 	else:
-		from data_models import FeedBack
+		# from data_models import FeedBack
 		data = dict(request.form)
 		if(('email' not in data) or ('mobile' not in data) or ('name' not in data) or ('description' not in data)):
 			return render_template('feedback.html',message='invalid schema')
@@ -49,7 +50,7 @@ def login():
 	if(request.method == 'GET'):
 		return render_template('login.html',message=None)
 	else:
-		from data_models import Users,FeedBack
+		# from data_models import Users,FeedBack
 		data = dict(request.form)
 		if(('username' not in data) or ('password' not in data)):
 			return render_template('login.html',message='invalid schema')
@@ -64,7 +65,7 @@ def login():
 
 @app.route('/review',methods=['POST'])
 def review():
-	from data_models import FeedBack
+	# from data_models import FeedBack
 	data = request.json
 	_feedbacks = []
 	end = False
@@ -85,10 +86,11 @@ def review():
 	if len(feedbacks) <10:
 		end = True
 	return jsonify(data=feedbacks,end=end)
+
 @app.route('/deletereview',methods=['POST'])
 def deletereview():
 	data = request.json
-	from data_models import FeedBack
+	# from data_models import FeedBack
 	if('Id' not in data):
 		return jsonify(response=0,message='Invalid shcema')
 	else:
