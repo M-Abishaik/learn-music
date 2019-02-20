@@ -1,0 +1,56 @@
+#reviews{
+    padding: 30px 20px;
+}
+.review{
+    margin-top: 20px;
+    border: 1px solid rgba(77, 29, 173, 1);
+    background-color: rgba(77, 29, 173, 1);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    position: relative;
+}
+.delete{
+    position:absolute;
+    top: 5%;
+    right: 3%;
+    color: white;
+    font-size: 20px;
+    /* transform: translate(0%,-50%); */
+}
+.delete:hover{
+    cursor: pointer;
+}
+.contact{
+    display: none;
+    text-align: right;
+    padding-right: 20px;
+}
+.contact.show{
+    display: block;
+}
+.name{
+    position: relative;
+    margin-top: 25px;
+    text-align: right;
+    padding-right: 20px;
+}
+.date{
+    font-size: 15px;
+}
+.close1{
+    position: absolute;
+    top: 0%;
+    right: 3%;
+    color: white;
+    font-size: 24px;
+    transform: translate(100%,-10%);
+}
+
+.close1 .minus{
+    display: none;
+}
+
+.close1:hover{
+    cursor: pointer;
+}

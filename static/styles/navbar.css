@@ -1,0 +1,42 @@
+.container{
+    position: relative;
+}
+nav{
+	position: absolute;
+	background-color: rgba(77, 29, 173, 1);
+    text-align: left;
+    width: 100%;
+    z-index: 200;
+    padding-bottom: 10px;
+    border-bottom: 1px solid white;
+}
+nav ul{
+	margin: unset;
+	padding: 3px 23px;
+	list-style: none;
+	color: white;
+	font-family: Arial, sans-serif;
+}
+nav ul li{
+	display: inline-block;
+}
+a.active,a{
+	/* font-weight: bold; */
+	font-size: 22px;
+	color: white;
+	text-decoration: none;
+}
+ .bar{
+	position: absolute;
+	color: white;
+	font-size: 22px;
+	right:   0%;
+	box-sizing: border-box;
+	transform: translate(-50%,-100%);
+}
+.bar:hover{
+	cursor: pointer;
+} 
+
+
+

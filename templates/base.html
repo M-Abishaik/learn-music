@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/gif/png" href="./static/images/play_icon.png">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <title>{% block title%} {%endblock%}</title>
+    {%block head%}
+        <link rel="stylesheet" type="text/css" href="./static/styles/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="./static/styles/styles.css">
+        <link rel="stylesheet" type="text/css" href="./static/styles/navbar.css">
+        <link rel="stylesheet" type="text/css" href="./static/styles/menu.css">
+        <link rel="stylesheet" type="text/css" href="./static/styles/form.css">
+        <link rel="stylesheet" type="text/css" href="./static/styles/thanks.css">
+        <link rel="stylesheet" type="text/css" href="./static/styles/loader.css">
+        <link rel="stylesheet" type="text/css" href="./static/styles/review.css">
+        <script type="text/javascript" src="./static/scripts/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="./static/scripts/jquery.redirect.js"></script>
+        <script type="text/javascript" src="./static/scripts/bootstrap.min.js"></script>
+        <script type="text/javascript" src="./static/scripts/mustache.min.js"></script>
+    {%endblock%}
+    
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row justify-content-center" style="background-color: rgba(255, 67, 88, 0.1)">
+            <div class="col-md-12 col-lg-4 vh-100 {%block background_class%}background{%endblock%} container">
+                <nav >
+                    <ul>
+                        <li><a class="active" href="/">Learn Music</a></li>
+                    </ul>
+                    <div id="bar" class="bar" type="bar"><i class="fas fa-bars"></i>
+                    </div>
+                </nav>
+                <div class="content-container">
+                    <div class="content">
+                        {% block content%}
+                        {% endblock%}
+                    </div>
+                    <div class="menu" id="menu">
+                            <ul>
+                                <li><a class="active" href="/feedback">FeedBack</a></li>
+                                <li><a class="active" href="/login" id="login">Login</a></li>
+                            </ul>
+                    </div>
+                    <div class="loader" id="loader">
+                            <img src="./static/images/lg.sandglass-time-loading-gif.gif" />
+                    </div>
+                    <div class="thanks {%block show%}{%endblock%}" id="thanks">
+                        <img src="./static/images/thanks.gif" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $('#bar').click(function(){
+        $('.menu').slideToggle("slow");
+    });
+    let menu = document.getElementById('menu');
+    menu.addEventListener('click',function(event){
+        let element = event.target;
+        let atag  = element.childNodes;
+        if(atag.length>0){
+            atag = atag[0];
+            $(atag)[0].click();
+        }  
+    });
+</script>
+{% block script%}{%endblock%}
+</html>

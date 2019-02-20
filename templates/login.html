@@ -1,82 +1,67 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<link rel="icon" type="image/gif/png" href="./static/images/play_icon.png">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-	<title>Music App</title>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1">
-     <link rel="stylesheet" type="text/css" href="./static/styles/bootstrap.min.css">
-     <link rel="stylesheet" type="text/css" href="./static/styles/form.css"> 
-     <link rel="stylesheet" type="text/css" href="./static/styles/styles.css">
-     <link rel="stylesheet" type="text/css" href="./static/styles/feedback.css">
-	 <script type="text/javascript" src="./static/scripts/jquery-3.3.1.min.js"></script>
-	 <script type="text/javascript" src="./static/scripts/jquery.redirect.js"></script>
-	 <script type="text/javascript" src="./static/statics/bootstrap.min.js"></script>
-	 <style type="text/css">
-	 	._select{
-			height: 2.2em;
+{% extends "base.html" %}
+{%block title%}Login -Music App{%endblock%}
+{%block background_class%}background{%endblock%}
+
+{%block head%}
+	{{ super()}}
+	<style>
+		#login_form{
+			position: relative;
+			top: 50%;	
+			transform: translate(0%,50%);
 		}
-	 	@media(max-width: 991.98px){
-			.btns{
-				font-size: 3.7em !important;
-			}
-			._select{
-				height: 3.8em;
-			}
-		}
-	 </style>
-	 
-</head>
-<body >
-	<div class="container-fluid">
-		<div class="row justify-content-center" style="background-color: rgba(255, 67, 88, 0.1)">
-			<div class="col-md-12 col-lg-4 vh-100 background">
-				<nav >
-					<ul>
-						<li><a class="active" href="/">Learn Music</a></li>
-					</ul>
-					<div id="bar" class="bar" type="bar"><i class="fas fa-bars"></i>
-                    </div>
-                    <div class="menu">
-                        <ul>
-                            <li><a class="active" href="/feedback">FeedBack</a></li>
-                            <li><a class="active" href="/login">Login</a></li>
-                        </ul>
-                    </div>
-				</nav>
-				<div class="form_container">
-                        <form  id="login_form">
-                                <div class="field">
-                                    <input type="text" name="username" class="form-control"/>
-                                    <label>Username</label>
-                                    <i class="fas fa-user"></i>
-                                </div>
-                                <div class="field">
-                                    <input type="password" name="password" class="form-control"/>
-                                    <label>Password</label>
-                                    <i class="fas fa-lock"></i>
-                                    <i class="password-icon far fa-eye-slash" data-focus="0" form-id="login_form" onclick="changePasswordtype(this)"></i>
-                                </div>
-                                <div class="field">
-                                   <center><input type="submit" class="primary-btn" value="Login"/></center> 
-                                </div>
-                            </form>            
-				</div>
+	</style>
+{%endblock%}
+
+{% block content%}
+	<div class="form_container">
+		{%if message%}
+			<div class="alert alert-warning alert-dismissible">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<strong>{{message}} <i class="fas fa-exclamation"></i><i class="fas fa-exclamation"></i><i class="fas fa-exclamation"></i></strong>
 			</div>
-		</div>
+		{%endif%}
+		<form  id="login_form" method="POST" action="/login">
+				<div class="field">
+					<input type="text" name="username" class="form-control"/>
+					<label>Username</label>
+					<i class="fas fa-user"></i>
+				</div>
+				<div class="field">
+					<input type="password" name="password" class="form-control"/>
+					<label>Password</label>
+					<i class="fas fa-lock"></i>
+					<i class="password-icon far fa-eye-slash" data-focus="0" form-id="login_form" onclick="changePasswordtype(this)"></i>
+				</div>
+				<div class="field">
+				   <center><input type="submit" class="primary-btn" value="Login"/></center> 
+				</div>
+			</form>            
 	</div>
-	<script>
-		let bar = document.getElementById('bar');
-		bar.addEventListener('click',function(event){ 
-			let element = event.target.parentNode;
-			let type = element.getAttribute('type');
-			console.log(element);
-			if(type){
-				element.classList.toggle('show');
-				console.log(element);
+
+{% endblock%}
+
+{% block script%}
+	<script type="text/javascript">
+		let loginForm = document.getElementById('login_form'); 
+		function changePasswordtype(element){
+			let passwordIcon = ["fa-eye-slash","fa-eye"];
+			let form_id      = element.getAttribute('form-id');
+			let data_focus   = Number(element.getAttribute('data-focus'));
+			element.classList.remove(passwordIcon[data_focus]);
+			data_focus++;
+			data_focus%=2;
+			element.classList.add(passwordIcon[data_focus]);
+			element.setAttribute('data-focus',data_focus);
+			if(form_id == "login_form" ){
+				if(data_focus){
+					loginForm.password.setAttribute('type','text');
+				}
+				else{
+					loginForm.password.setAttribute('type','password');
+				}
 			}
-		})
+			console.log(form_id,data_focus);
+		}
 	</script>
-</body>
-</html>
+{%endblock%}

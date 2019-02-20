@@ -1,76 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<link rel="icon" type="image/gif/png" href="./static/images/play_icon.png">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-	<title>Music App</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	 <meta charset="UTF-8">
-	 <link rel="stylesheet" type="text/css" href="./static/styles/bootstrap.min.css">
-	 <link rel="stylesheet" type="text/css" href="./static/styles/styles.css">
-	 <script type="text/javascript" src="./static/scripts/jquery-3.3.1.min.js"></script>
-	 <script type="text/javascript" src="./static/scripts/jquery.redirect.js"></script>
-	 <script type="text/javascript" src="./static/statics/bootstrap.min.js"></script>
-	 <style type="text/css">
-	 	._select{
-			height: 2.2em;
-		}
-	 	/* @media(max-width: 991.98px){
-			.btns{
-				font-size: 3.7em !important;
-			}
-			._select{
-				height: 3.8em;
-			}
-			.bars{
-				height: 60px;
-			}	
-		} */
-	 </style>
-	 <script type="text/javascript">
-	 	function load_lesson(lesson_name){
-	 		
-	 		$.redirect('/lesson',{lesson_name:lesson_name},"POST","_self");
-	 	}
-	 </script>
-</head>
-<body >
-	<div class="container-fluid">
-		<div class="row justify-content-center" style="background-color: rgba(255, 67, 88, 0.1)">
-			<div class="col-md-12 col-lg-4 vh-100 _background">
-				<nav >
-					<ul>
-						<li><a class="active" href="/">Learn Music</a></li>
-					</ul>
-					<div id="bar" class="bar" type="bar"><i class="fas fa-bars"></i>
-						<div class="menu">
-							<div class="triangle"></div>
-							<ul>
-								<li><a class="active" href="/feedback">FeedBack</a></li>
-								<li><a class="active" href="/login">Login</a></li>
-							</ul>
-						</div>
-					</div>
-				</nav>
-				<div style="margin-top: 75vh;margin-left: 5vw;">
-					
-					<button class="btn btn-primary btns" onclick="load_lesson('lesson1')">Lesson 1</button>&emsp;
-					<button class="btn btn-primary btns" onclick="load_lesson('lesson2')">Lesson 2</button>
-				</div>
-			</div>
-		</div>
+{% extends "base.html" %}
+{%block title%}Music App{%endblock%}
+{%block background_class%}_background{%endblock%}
+
+{%block head%}
+	{{ super()}}
+{%endblock%}
+
+
+{% block content%}
+	<div style="margin-top: 80vh;margin-left: 5vw;">			
+		<button class="btn btn-primary btns" onclick="load_lesson('lesson1')">Lesson 1</button>&emsp;
+		<button class="btn btn-primary btns" onclick="load_lesson('lesson2')">Lesson 2</button>
 	</div>
-	<script>
-		let bar = document.getElementById('bar');
-		bar.addEventListener('click',function(event){ 
-			let element = event.target.parentNode;
-			let type = element.getAttribute('type');
-			console.log(element);
-			if(type){
-				element.classList.toggle('show');
-				console.log(element);
-			}
-		})
+{% endblock%}
+	 
+	 
+{% block script%}
+	<script type="text/javascript">
+		function load_lesson(lesson_name){
+			$.redirect('/lesson',{lesson_name:lesson_name},"POST","_self");
+		}
 	</script>
-</body>
-</html>
+{%endblock%}

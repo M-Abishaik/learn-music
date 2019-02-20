@@ -37,7 +37,7 @@ class FeedBack(db.Model):
     mobile_no  = db.Column(db.String(10))
     email      = db.Column(db.String(50))
     description=db.Column(db.Text(),)
-    DATE=db.Column(db.String(50),default=(datetime.utcnow()+timedelta(hours=5,minutes=30)).replace(microsecond=0).strftime("%A, %d. %B %Y %I:%M%p"))
+    DATE=db.Column(db.String(50),default=(datetime.utcnow()+timedelta(hours=5,minutes=30)).replace(microsecond=0).strftime("%d/%m/%Y %I:%M%p"))
     
     """doc string for FeedBack object: db.Model"""
     def __init__(self, description,name,mobile_no,email):

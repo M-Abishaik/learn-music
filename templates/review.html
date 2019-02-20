@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{%block title%}Reviews -Music App{%endblock%}
+{%block background_class%}background{%endblock%}
+
+{%block head%}
+    {{ super()}}
+{%endblock%}
+
+{% block content%}
+<div id="reviews">
+
+</div>
+<input type="hidden" value=""  id="lastId"/>
+<input type="hidden" value="0" id="end"/>
+<input type="hidden" value="0" id="requestbusy"/>
+{% endblock%}
+
+{% block script%}
+    <script type="text/javascript">
+        $('#lastId').val('');
+        $('#end').val(0);
+        $('#requestbusy').val(0);
+        function getReviews(){
+            let lastId = $('#lastId').val();
+            let end    = $('#end').val();
+            let requestbusy = $('#requestbusy').val();
+            //console.log(end,end == '1');
+            if(end == '1' || requestbusy == '1'){
+                return;
+            }
+            $('#requestbusy').val(1);    
+            $.ajax({
+                url: '/review',
+                data:JSON.stringify({"lastId":lastId}),
+                contentType: "application/json",
+
+                headers: { 'Access-Control-Allow-Origin': '*' },
+                type: 'POST',
+                }) .done(function (json){
+                        if(json['end'] == true){
+                            $('#end').val(1);
+                        }
+                        let results = '';
+                        let data = json['data'];
+                        for(let i=0;i<data.length;i++){
+                            results+= `
+                                <div class="review" id="review${data[i].id}" review='${data[i].id}' type='review'>
+                                    <div  class='delete' type='delete' ><i class="far fa-trash-alt" type='delete'></i></div>
+                                    <div class="data">${data[i].description}
+                                    </div>
+                                    <div class="footer" type='footer'>
+                                        <div class="name">
+                                            <span></b>By ${data[i].name}</b> at </span><span class ="date">${data[i].date}</span>
+                                            <span class="close1" type='close'><span class="plus" type='close'><i class="fas fa-angle-down" type='close'></i></span><span class="minus" type='close'><i class="fas fa-angle-up" type='close'></i></span></span>
+                                        </div>
+                                        <div class='contact'>
+                                            <span class="email">${data[i].email}</span><br>
+                                            <span>${data[i].mobile}</span><br>
+                                        </div>
+                                    </div>
+                                </div>`;
+                            
+                        }
+                        if(data.length>0)
+                            $('#lastId').val(data[data.length-1].id);
+                        $('#reviews').append(results);
+                        $('#requestbusy').val(0);  
+                        //console.log(json)
+                }).fail(function(xhr,status,errorThrow){
+                        console.log('error'+errorThrow)
+                });
+        }
+        getReviews();
+
+        document.addEventListener('scroll',function(){
+            if(window.scrollY >= window.innerHeight*0.75){
+                getReviews();
+            }
+        });
+
+        let reviews = $('#reviews')[0];
+        reviews.addEventListener('click',function(event){
+            let element = event.target;
+            // console.log(element);
+            let type = element.getAttribute('type');
+            if(type=='close'){
+                let footer = getParent(element,'footer');
+                let contact = footer.getElementsByClassName('contact')[0];
+                $(contact).slideToggle();
+            }
+            if(type == 'delete'){
+                let review   = getParent(element,'review');
+                let reviewId = review.getAttribute('review');
+                deleteReview(reviewId);
+            }
+        })
+
+        function getParent(element,name){
+            let type = element.getAttribute('type');
+            if(type == name){
+                return element;
+            }
+            else return getParent(element.parentNode,name);
+        }
+
+        function deleteReview(reviewId){
+            let _id = '#review'+reviewId;
+            $(_id).remove();
+            $.ajax({
+                url: '/deletereview',
+                data:JSON.stringify({"Id":reviewId}),
+                contentType: "application/json",
+                headers: { 'Access-Control-Allow-Origin': '*' },
+                type: 'POST',
+                }) .done(function (json){
+                        console.log(json)
+                }).fail(function(xhr,status,errorThrow){
+                        console.log('error'+errorThrow)
+                });
+        }
+    </script>
+{%endblock%}

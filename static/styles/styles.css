@@ -1,10 +1,14 @@
 :root{
 	--background_img:"http://192.168.43.125:8000/static/images/home.png";
 }
-._background{
+ ._background{
 	background-image: url("https://playmusicapp.herokuapp.com/static/images/attachment1.jpg");
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
+	padding: unset;
+} 
+.background{
+	background-color: white;	
 	padding: unset;
 }
 .btns{
@@ -27,65 +31,3 @@
 .box{
 	display: none;
 }
-nav{
-	position: relative;
-	background-color: rgba(77, 29, 173, 1);
-	text-align: left;
-}
-nav ul{
-	margin: unset;
-	padding: 3px 23px;
-	list-style: none;
-	color: white;
-	font-family: Arial, sans-serif;
-}
-nav ul li{
-	display: inline-block;
-}
-a.active,a{
-	/* font-weight: bold; */
-	font-size: 22px;
-	color: white;
-	text-decoration: none;
-}
-.bar{
-	display: inline-block;
-	position: relative;
-	color: white;
-	font-size: 22px;
-	left:  90%;
-	padding: 20px 0px;
-	box-sizing: border-box;
-	transform: translate(0%,-80%);
-}
-.bar:hover{
-	cursor: pointer;
-}
-
-.menu{
-	display: none;
-	width: 90%;
-}
-
-.menu > ul{
-	padding: 5px 0px;
-	box-sizing: border-box;
-}
-
-.menu > ul >li{
-	display: block;
-	/* padding: 10px 10px; */
-	border-bottom: 1px solid white;
-}
-.bar.show .menu{
-	display: block;	
-}
-/* @media(max-width: 991.98px){
-	nav a.active{
-		font-size: 3.7em
-	}
-	.bar{
-		font-size: 3.7em
-	}
-
-} */
