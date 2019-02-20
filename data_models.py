@@ -3,7 +3,7 @@ from app import app,db
 from datetime import datetime,timedelta
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
-from passlib.apps import custom_app_context as pwd_context
+from passlib.hash import pbkdf2_sha256
 
 
 # Create our database model
@@ -16,10 +16,10 @@ class Users(db.Model):
     password   = db.Column(db.String(1000))
 
     def hash_password(self, password):
-        return pwd_context.encrypt(password)
+        return pbkdf2_sha256.hash(password)
 
     def verify_password(self, password):
-        return pwd_context.verify(password, self.password)
+        return pbkdf2_sha256.verify(password, self.password)
 
 
     def __init__(self,password,name,email,mobile_no):
