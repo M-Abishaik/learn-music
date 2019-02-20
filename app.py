@@ -34,7 +34,7 @@ def feedback():
 		return render_template('feedback.html')
 	else:
 		from data_models import FeedBack
-		data = dict(request.form)
+		data = request.form
 		if(('email' not in data) or ('mobile' not in data) or ('name' not in data) or ('description' not in data)):
 			return render_template('feedback.html',message='invalid schema')
 		if((data['name']=='') or (data['mobile']=='') or (data['email']=='') or (data['description']=='')):
