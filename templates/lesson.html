@@ -20,8 +20,7 @@
 				height: 20vh;
 				/* width:  60vw; */
 			}
-
-	}
+		}
 	</style>
 {%endblock%}
 
@@ -62,7 +61,7 @@
 	<button class="btn btn-primary btns _start" id="micButton" onclick="start()">Start</button></center>
 	
 	<div>
-		<center><h5 class="congrats" style="margin-top: 2vh;margin-left: 2vw;display: none;color: rgba(76, 175, 80, 1);" id="congrats">Congratulation</h5><br></center>
+		<h5 class="congrats" style="margin-top: 5vh;display: none;color: rgba(76, 175, 80, 1);text-align: center;" id="congrats">Congratulation</h5><br>
 		
 
 		<h5 class="primary box" style="margin-top: 2vh;margin-left: 2vw;">Notes:&emsp;<span id="notes"></span></h5><br>
@@ -71,7 +70,7 @@
 		<!--
 		<h5 class="primary box _listen" style="margin-top: 2vh;margin-left: 2vw;">Listen Mode:&emsp;<span id="remaining_second">0</span>/<span id="total_second"></span></h5><br>-->
 
-		<h5 sclass="mistake" tyle="margin-left: 2vw;display: none;color: red" id="mistake"></h5><br>
+		<h5 class="mistake" style="margin-left: 2vw;color: red;display: none;" id="mistake"></h5><br>
 
 		<h5 class="primary box _listen" style="margin-top: 1vh;margin-left: 2vw;">Repeat:&emsp;<span id="repeat">0</span>/3</h5><br>
 		<h5 class="primary box _listen" style="margin-left: 2vw;">Waiting For Note:&emsp;<span id="nextnote"></span></h5><br>
