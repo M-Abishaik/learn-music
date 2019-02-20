@@ -4,7 +4,6 @@ from sqlalchemy import desc,func
 from musical_functions import Build_Notes,Construct_svaras
 from Melakarta_ragas import Melakarta_Ragas
 import json,os
-from data_models import FeedBack,Users
 
 lessons={
 	"lesson1":["s", "r", "g", "m"],
@@ -33,7 +32,7 @@ def feedback():
 	if(request.method == 'GET'):
 		return render_template('feedback.html')
 	else:
-		# from data_models import FeedBack
+		from data_models import FeedBack
 		data = dict(request.form)
 		if(('email' not in data) or ('mobile' not in data) or ('name' not in data) or ('description' not in data)):
 			return render_template('feedback.html',message='invalid schema')
@@ -50,7 +49,7 @@ def login():
 	if(request.method == 'GET'):
 		return render_template('login.html',message=None)
 	else:
-		# from data_models import Users,FeedBack
+		from data_models import Users,FeedBack
 		data = dict(request.form)
 		if(('username' not in data) or ('password' not in data)):
 			return render_template('login.html',message='invalid schema')
@@ -65,7 +64,7 @@ def login():
 
 @app.route('/review',methods=['POST'])
 def review():
-	# from data_models import FeedBack
+	from data_models import FeedBack
 	data = request.json
 	_feedbacks = []
 	end = False
@@ -86,11 +85,10 @@ def review():
 	if len(feedbacks) <10:
 		end = True
 	return jsonify(data=feedbacks,end=end)
-
 @app.route('/deletereview',methods=['POST'])
 def deletereview():
 	data = request.json
-	# from data_models import FeedBack
+	from data_models import FeedBack
 	if('Id' not in data):
 		return jsonify(response=0,message='Invalid shcema')
 	else:
