@@ -16,7 +16,7 @@ base_addr="https://learnmusic.herokuapp.com"
 
 app=Flask('__name__')
 # app.config['SQLALCHEMY_DATABASE_URI']=os.getenv('DATABASE_URL','mysql://user:user@localhost/test')
-app.config['SQLALCHEMY_DATABASE_URI']=os.getenv('DATABASE_URL')#,'postgres://alioqrrukzmeri:f442afdd37d8bd3f252a8178d1b96a7c276b41b6bee6972024c7bdb33ca74ac9@ec2-23-21-130-182.compute-1.amazonaws.com:5432/dkksbh8v27li8')
+app.config['SQLALCHEMY_DATABASE_URI']=os.getenv('DATABASE_URL','postgres://alioqrrukzmeri:f442afdd37d8bd3f252a8178d1b96a7c276b41b6bee6972024c7bdb33ca74ac9@ec2-23-21-130-182.compute-1.amazonaws.com:5432/dkksbh8v27li8')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=True
 app.config['SECRET_KEY'] = 'secret'
 db = SQLAlchemy(app)
@@ -34,7 +34,7 @@ def feedback():
 		return render_template('feedback.html')
 	else:
 		from data_models import FeedBack
-		data = dict(request.form.json)
+		data = dict(request.form)
 		if(('email' not in data) or ('mobile' not in data) or ('name' not in data) or ('description' not in data)):
 			return render_template('feedback.html',message='invalid schema')
 		if((data['name']=='') or (data['mobile']=='') or (data['email']=='') or (data['description']=='')):
@@ -51,7 +51,8 @@ def login():
 		return render_template('login.html',message=None)
 	else:
 		from data_models import Users,FeedBack
-		data = dict(request.form.json)
+		data = dict(request.form)
+		print(data)
 		if(('username' not in data) or ('password' not in data)):
 			return render_template('login.html',message='invalid schema')
 		if((data['username']=='') or (data['password']=='')):
