@@ -54,3 +54,11 @@
 .close1:hover{
     cursor: pointer;
 }
+
+.footer.show .close1 > .minus{
+    display: block;
+}
+
+.footer.show .close1 > .plus{
+    display: none;
+}

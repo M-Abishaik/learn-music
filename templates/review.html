@@ -85,6 +85,7 @@
             let type = element.getAttribute('type');
             if(type=='close'){
                 let footer = getParent(element,'footer');
+                footer.classList.toggle('show');
                 let contact = footer.getElementsByClassName('contact')[0];
                 $(contact).slideToggle();
             }
