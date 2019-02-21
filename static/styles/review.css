@@ -10,16 +10,14 @@
     border-radius: 20px;
     position: relative;
 }
-.data{
-    position: relative;
-}
+
 .delete{
     position:absolute;
     top: 5%;
-    right: 0%;
+    right: 3%;
     color: white;
     font-size: 20px;
-    transform: translate(35%,0%);
+    /* transform: translate(35%,0%); */
 }
 .delete:hover{
     cursor: pointer;
