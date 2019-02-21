@@ -3,6 +3,7 @@
 }
 nav{
 	position: absolute;
+	top: 0%;
 	background-color: rgba(77, 29, 173, 1);
     text-align: left;
     width: 100%;
@@ -37,6 +38,4 @@ a.active,a{
 .bar:hover{
 	cursor: pointer;
 } 
-
-
 
