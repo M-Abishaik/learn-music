@@ -15,8 +15,8 @@ base_addr="https://learnmusic.herokuapp.com"
 # base_addr="http://192.168.43.125:5000"
 
 app=Flask('__name__')
-# app.config['SQLALCHEMY_DATABASE_URI']=os.getenv('DATABASE_URL','mysql://user:user@localhost/test')
-app.config['SQLALCHEMY_DATABASE_URI']=os.getenv('DATABASE_URL','postgres://alioqrrukzmeri:f442afdd37d8bd3f252a8178d1b96a7c276b41b6bee6972024c7bdb33ca74ac9@ec2-23-21-130-182.compute-1.amazonaws.com:5432/dkksbh8v27li8')
+app.config['SQLALCHEMY_DATABASE_URI']=os.getenv('DATABASE_URL','mysql://user:user@localhost/musicApp')
+# app.config['SQLALCHEMY_DATABASE_URI']=os.getenv('DATABASE_URL','postgres://alioqrrukzmeri:f442afdd37d8bd3f252a8178d1b96a7c276b41b6bee6972024c7bdb33ca74ac9@ec2-23-21-130-182.compute-1.amazonaws.com:5432/dkksbh8v27li8')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=True
 app.config['SECRET_KEY'] = 'secret'
 db = SQLAlchemy(app)
