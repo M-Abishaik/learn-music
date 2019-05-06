@@ -11,7 +11,7 @@ lessons={
 }
 # base_addr="http://127.0.0.1:5000"
 base_addr="https://learnmusic.herokuapp.com"
-# base_addr="http://192.168.43.125:5000"
+# base_addr="http://192.168.43.99:5000"
 
 app=Flask('__name__')
 app.config['SQLALCHEMY_DATABASE_URI']=os.getenv('DATABASE_URL','mysql://user:user@localhost/musicApp')
@@ -58,6 +58,7 @@ def login():
 			return render_template('login.html',message='invalid username or password')
 		else:
 			user=db.session.query(Users).filter(Users.email == data['username']).first()
+			print(user,data['username'])
 			if user and user.verify_password(data['password']):
 				return render_template('review.html',username=data['username'],password=data['password'])
 			else:
@@ -71,6 +72,7 @@ def review():
 	end = False
 	if(data['lastId'] == ''):
 		 _feedbacks = FeedBack.query.order_by(FeedBack.sno.desc()).limit(10).all()
+		 # print('feedbacks',_feedbacks)
 	else:
 		 _feedbacks = FeedBack.query.filter(FeedBack.sno < int(data['lastId'])).order_by(FeedBack.sno.desc()).limit(10).all()		
 	feedbacks  = list()
@@ -86,6 +88,7 @@ def review():
 	if len(feedbacks) <10:
 		end = True
 	return jsonify(data=feedbacks,end=end)
+
 @app.route('/deletereview',methods=['POST'])
 def deletereview():
 	data = request.json
@@ -143,4 +146,4 @@ def getLesson():
 	return jsonify(carnatic_lesson=carnatic_lesson,western_lesson=western_lesson)
 
 if __name__=="__main__":
-	app.run(debug=True)#,host="192.168.43.125",port=5000)
+	app.run(debug=True,host="192.168.43.99",port=5000)

@@ -1,8 +1,5 @@
-:root{
-	--background_img:"http://192.168.43.125:8000/static/images/home.png";
-}
  ._background{
-	background-image: url("https://playmusicapp.herokuapp.com/static/images/attachment1.jpg");
+	background-image: url("https://learnmusic.herokuapp.com/static/images/attachment1.jpg");
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	padding: unset;
