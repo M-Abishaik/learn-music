@@ -183,6 +183,28 @@
     musicPlayer.PlayLesson(index);
   };
 
+  musicPlayer.playBack = function(){
+    // fetch index from noteIndex
+    let index = $("#noteIndex").val();
+    if(index!=='NULL'){
+        
+        if (isPaused) {
+          return; // not running, so nothing to do
+        }
+        audioCtx.suspend().then(function(){
+          setTimeout(()=>{updateGaugeScale(0);},300)
+          console.log('listening stopped');
+        });
+        pitchChangeHandler(-1);
+        isPaused = true;
+        
+
+      index = parseInt(index);
+      musicPlayer.PlayLesson(index);
+    }
+    console.log('Index: ',index);
+  }
+
   musicPlayer.fetchLesson = async function() {
     let raga=$("#ragas").val();
     let lesson_name=$('#lesson_name').val();
@@ -216,6 +238,11 @@
     westernLesson  = lesson['western_lesson'];
     $(".box").show();
     $('#micButton').attr("disabled", true);
+    $("#SCALE").attr("disabled", true);
+    $("#SHRUTI").attr("disabled", true);
+    $("#ragas").attr("disabled", true);
+    $('#micButton').hide();
+    $('#playBack').show();
     musicPlayer.PlayLesson(0);
     musicPlayer.start(()=>{
       console.log('autio listening initalized');
@@ -228,6 +255,8 @@
   
   //start playing onces notes are fetched from server
   musicPlayer.PlayLesson =function(index){
+
+      $('#playBack').attr("disabled", true);
       // console.log(index);
       if(index >= carnaticLesson.length){
         $('._start').text('Start');
@@ -243,6 +272,10 @@
         console.log('Notes',notes);
         $('#notes').text(notes);
         musicPlayer.playnotes(notes,index);
+
+        // Store Index in noteIndex
+        $("#noteIndex").val(index);
+        // PlayLesson
       }
       
   }
@@ -270,6 +303,7 @@
           
         }
         else{
+          $('#playBack').attr("disabled", false);
           musicPlayer.listen(index);
         }
     };

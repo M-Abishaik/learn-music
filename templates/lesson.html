@@ -10,6 +10,7 @@
 				musicPlayer.startApplication();
 			}
 	</script>
+	<link rel="stylesheet" type="text/css" href="">
 	<style type="text/css">
 			
 		@media(max-width: 991.98px){
@@ -21,6 +22,11 @@
 				/* width:  60vw; */
 			}
 		}
+
+		._playBackBtn{
+			display: none;
+		}
+
 	</style>
 {%endblock%}
 
@@ -58,7 +64,8 @@
 		{%endfor%}
 	</select>
 	<br><br>
-	<button class="btn btn-primary btns _start" id="micButton" onclick="start()">Start</button></center>
+	<button class="btn btn-primary btns _start" id="micButton" onclick="start()">Start</button>
+	<button class="btn btn-primary btns _playBackBtn" id="playBack" onclick="musicPlayer.playBack()">Play Back</button></center>
 	
 	<div>
 		<h5 class="congrats" style="margin-top: 5vh;display: none;color: rgba(76, 175, 80, 1);text-align: center;" id="congrats">Congratulation</h5><br>
@@ -78,6 +85,7 @@
 	</div>
 	<input type="hidden" value="{{lesson_name}}" id="lesson_name">
 	<input type="hidden" value="{{base_addr}}" id="base_addr">
+	<input type="hidden" value="NULL" id="noteIndex">
 	<span id="scale" style="display: none;">2</span>
 {% endblock%}
 	 

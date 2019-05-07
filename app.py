@@ -11,7 +11,7 @@ lessons={
 }
 # base_addr="http://127.0.0.1:5000"
 base_addr="https://learnmusic.herokuapp.com"
-# base_addr="http://192.168.43.99:5000"
+# base_addr="http://192.168.43.99:8080"
 
 app=Flask('__name__')
 # app.config['SQLALCHEMY_DATABASE_URI']=os.getenv('DATABASE_URL','mysql://user:user@localhost/musicApp')
@@ -146,4 +146,4 @@ def getLesson():
 	return jsonify(carnatic_lesson=carnatic_lesson,western_lesson=western_lesson)
 
 if __name__=="__main__":
-	app.run(debug=True,host="192.168.43.99",port=5000)
+	app.run(debug=True,host="192.168.43.99",port=8080)
