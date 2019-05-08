@@ -200,6 +200,10 @@
         
 
       index = parseInt(index);
+      left_node_mistake=0;
+      right_node_mistake=0;
+      tmp_repeatation=0;
+      $('#repeat').text(tmp_repeatation);
       musicPlayer.PlayLesson(index);
     }
     console.log('Index: ',index);
