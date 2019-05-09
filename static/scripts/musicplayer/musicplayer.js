@@ -349,6 +349,7 @@
   musicPlayer.onPitchChange(function(pitch) {
     if(pitch!=-1 && pitch<1600){
       let note      = api.noteFromPitch(pitch);
+      $('#frequency').text(pitch);
       $('#note').text(note);
       music_notes.push(note);
       let requiredSwaraFreq=12*parseInt(music_play_note[swaraIndex].slice(-1))+_shruti.indexOf(music_play_note[swaraIndex].slice(0,-1));
