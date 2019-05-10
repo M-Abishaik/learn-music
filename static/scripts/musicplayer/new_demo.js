@@ -184,7 +184,7 @@
 				
 				note   = note.note;
 				let pitch  = fundalmentalFreq;
-				$('#frequency').text(pitch);
+				$('#frequency').text(pitch.toFixed(2));
 			    $('#note').text(note);
 			    
       			music_notes.push(note);
