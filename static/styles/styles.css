@@ -1,6 +1,6 @@
  ._background{
 	background-image: url("https://learnmusic.herokuapp.com/static/images/attachment1.jpg");
-	/*background-image: url("http://192.168.43.99:8080/static/images/attachment1.jpg");*/
+	/*background-image: url("http://127.0.0.1:5000/static/images/attachment1.jpg");*/
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	padding: unset;

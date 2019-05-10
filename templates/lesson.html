@@ -37,30 +37,34 @@
 	<canvas id="foo"></canvas><br>
 	<select class="custom-select _select col-6" style="border: 2px solid rgba(77, 29, 173, 1);" id="ragas">
 		{%for ragas in Melakarta_Ragas%}
-			<option value="{{ragas}}">{{ragas}}</option>
+			{%if ragas != "dheerasankarabaranam" %}
+				<option value="{{ragas}}" disabled>{{ragas}}</option>
+			{%else%}
+				<option value="{{ragas}}" selected="selected">{{ragas}}</option>
+			{%endif%}
 		{%endfor%}
 	</select><br>
 	<select class="custom-select _select col-3" id="SHRUTI" style="border: 2px solid rgba(77, 29, 173, 1); ">
 		<option value="C"  >C</option>
-		<option value="C#" >C#</option>
-		<option value="D"  >D</option>
-		<option value="D#" >D#</option>
-		<option value="E"  >E</option>
-		<option value="F"  >F</option>
-		<option value="F#" >F</option>
-		<option value="G"  >G</option>
-		<option value="G#" >G#</option>
-		<option value="A"  >A</option>
-		<option value="A#" >A#</option>
+		<option value="C#" disabled> C# </option>
+		<option value="D"  disabled> D  </option>
+		<option value="D#" disabled> D# </option>
+		<option value="E"  disabled> E  </option>
+		<option value="F"  disabled> F  </option>
+		<option value="F#" disabled> F  </option>
+		<option value="G"  disabled> G  </option>
+		<option value="G#" disabled> G# </option>
+		<option value="A"  disabled> A  </option>
+		<option value="A#" disabled> A# </option>
 		<option value="B"  selected="selected">B</option>
 	</select>
 	<select class="custom-select _select col-3" id="SCALE" style="border: 2px solid rgba(77, 29, 173, 1); ">
 		{%for i in range(3)%}
-		<option value="{{i+1}}">{{i+1}}</option>
+		<option value="{{i+1}}" disabled > {{i+1}} </option>
 		{%endfor%}
 		<option value="4" selected="selected">4</option>
 		{%for i in range(5,6)%}
-		<option value="{{i+1}}">{{i+1}}</option>
+		<option value="{{i+1}}" disabled> {{i+1}} </option>
 		{%endfor%}
 	</select>
 	<br><br>

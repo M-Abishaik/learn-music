@@ -206,7 +206,7 @@
       $('#repeat').text(tmp_repeatation);
       musicPlayer.PlayLesson(index);
     }
-    console.log('Index: ',index);
+    console.log('Paused Index: ',index);
   }
 
   musicPlayer.fetchLesson = async function() {
@@ -351,6 +351,7 @@
       let note      = api.noteFromPitch(pitch);
       $('#frequency').text(pitch);
       $('#note').text(note);
+      // console.log(note,pitch+" Hz");
       music_notes.push(note);
       let requiredSwaraFreq=12*parseInt(music_play_note[swaraIndex].slice(-1))+_shruti.indexOf(music_play_note[swaraIndex].slice(0,-1));
           requiredSwaraFreq=freqTable[requiredSwaraFreq]['frequency'];
