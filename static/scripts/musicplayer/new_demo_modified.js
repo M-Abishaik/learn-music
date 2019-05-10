@@ -416,8 +416,8 @@
     musicPlayer.checkPitchs = function(){
 	    let end=1;
 	    let today = new Date();
-	    // console.log('music_notes length',music_notes.length," @ "+today.getMinutes() + ":" + today.getSeconds());
-	    // console.log('Current Mistake',left_node_mistake,right_node_mistake);
+	    console.log('music_notes length',music_notes.length," @ "+today.getMinutes() + ":" + today.getSeconds());
+	    console.log('Current Mistake',left_node_mistake,right_node_mistake);
 	    if(music_notes.length>45){
 	      let tmp_notes = music_notes;
 	      music_notes   = [];
@@ -429,7 +429,7 @@
 	      let tmp_len    = unique_notes.length;
 	      
 	      console.log('tmp_len',tmp_len)
-	      // console.log('tmp_notes',tmp_notes);
+	      console.log('tmp_notes',tmp_notes);
 	      
 	      //ignore noice in stream
 	      for(let i=1;i<tmp_notes.length;i++){
@@ -444,7 +444,7 @@
 	      }
 	      if(count>10)
 	        notesequence.push([tmp,count]);
-	        // console.log('notesequence',notesequence);
+	        console.log('notesequence',notesequence);
 
 	      if(notesequence.length>=1){
 	        tmp=notesequence[0][0];
@@ -463,7 +463,7 @@
 
 	        if(count>35)
 	          refinednotesequence.push([tmp,count]);
-	         // console.log('refined notes',refinednotesequence);
+	         console.log('refined notes',refinednotesequence);
 
 	        //merge refined note[0] if it exist in  unique last notes
 	      if(refinednotesequence.length>=1){
@@ -527,7 +527,7 @@
 	    // music_notes  = [];
 	    unique_notes = [];
 	    //tries for 3 times each time it record swara count
-	    // console.log('Stopped ,repetation',tmp_repeatation,repetation);
+	    console.log('Stopped ,repetation',tmp_repeatation,repetation);
 	    if(tmp_repeatation>=repetation){
 	      console.log('done');
 	      tmp_repeatation=0;
