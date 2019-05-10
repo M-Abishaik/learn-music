@@ -63,6 +63,7 @@
 		
 		if (musicPlayer.isAudioContextSupported()) {
 			audioContext = new window.AudioContext();
+			console.log(audioContext);
 		}
 		else {
 			musicPlayer.reportError('AudioContext is not supported in this browser');
