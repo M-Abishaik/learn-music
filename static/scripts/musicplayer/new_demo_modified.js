@@ -50,6 +50,7 @@
 
 	musicPlayer.reportError = function (message) {
 		console.log("ERROR:",message);
+		$("#mistake").text(message);
 		// $('#errorMessage').html(message).show();
 	};
 
