@@ -1,3 +1,9 @@
+/*
+	Original source code from https://developer.microsoft.com/en-us/microsoft-edge/testdrive/demos/webaudiotuner/scripts/demo.js?_ts=1556250857036
+	domain: https://developer.microsoft.com/en-us/microsoft-edge/testdrive/demos/webaudiotuner/
+	
+	Auto co-relation algorithm is good
+*/
 /* global $, Gauge */
 $(document).ready(function () {
 	'use strict';

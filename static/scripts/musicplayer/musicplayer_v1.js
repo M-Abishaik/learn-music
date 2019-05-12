@@ -1,3 +1,8 @@
+/*
+  THis is copy of musicplayer v0 algorithm, it could record audio from both desktop and mobile
+  and this code contains poor auto correlation and pitch detection
+  few bugs were rectified  
+*/
 (function(musicPlayer) {
   'use strict';
 
@@ -180,6 +185,7 @@
     });
     pitchChangeHandler(-1);
     isPaused = true;
+    left_node_mistake=0;
     musicPlayer.PlayLesson(index);
   };
 
@@ -365,188 +371,186 @@
 
   });
 
-  musicPlayer.checkPitchs = function(){
-    let end=0;
-    //  console.log('called',music_notes.length);
-    if(music_notes.length>45){
-      let tmp_notes = music_notes;
-      music_notes   = [];
-      let tmp = tmp_notes[0];
-      let count=1;
-      let notesequence=[];
-      let refinednotesequence=[];
-      let flag=0;
-      let tmp_len    = unique_notes.length;
-      
-      console.log('tmp_len',tmp_len)
-      //ignore noice in stream
-      for(let i=1;i<tmp_notes.length;i++){
-        if(tmp!=tmp_notes[i]){
-          if(count>10) //ignore noice
-            notesequence.push([tmp,count]);
-          tmp=tmp_notes[i];
-          count=1;
-        }
-        else
-          count++;
-      }
-      if(count>10)
-        notesequence.push([tmp,count]);
-      //  console.log('notesequence',notesequence);
-      if(notesequence.length>=1){
-        tmp=notesequence[0][0];
-        count=notesequence[0][1];
-        //console.log(notesequence,tmp,count);
-        for(let i=1;i<notesequence.length;i++){
-          if(tmp!=notesequence[i][0]){
-            if(count>45)
-              refinednotesequence.push([notesequence[i][0],notesequence[i][1]]);
-            tmp=notesequence[i][0];
-            count=notesequence[i][1];
-          }
-          else
-            count+=notesequence[i][1];
-        }
-
-        if(count>45)
-          refinednotesequence.push([tmp,count]);
-        //  console.log('refined notes',refinednotesequence);
-
-        //merge refined note[0] if it exist in  unique last notes
-      if(refinednotesequence.length>=1){
-          if(tmp_len>=1 && unique_notes[tmp_len-1][0]==refinednotesequence[0][0]){
-            flag=1;
-            unique_notes=[[refinednotesequence[0][0],refinednotesequence[0][1]+unique_notes[tmp_len-1][1]]];
-          }
-          else
-            unique_notes=[];
-
-          for(let i=flag;i<refinednotesequence.length;i++)
-            unique_notes.push([refinednotesequence[i][0],refinednotesequence[i][1]]);
-          
-          //console.log(unique_notes);
-          if(unique_notes.length>=1 && tmp_repeatation<repetation){
-            for(let i=flag;i<unique_notes.length;i++){
-              //console.log('swaraIndex',swaraIndex);
-              if(swaraIndex <swarasCount &&  tmp_repeatation <=repetation && unique_notes[i][0]!=music_play_note[swaraIndex])
-              {
-                if(swaraIndex<(swarasCount/2))
-                  left_node_mistake++;
-                else
-                  right_node_mistake++;
-                
-              }
-              if(swarasCount==1){
-                //in case of single swara increment only if it is right
-                if(flag==0 && unique_notes[i][0]==music_play_note[swaraIndex]){
-                  swaraIndex++;
-                }
-              }
-              //incase multiple swara increment for each swara either it is right or wrong
-              else{
-                swaraIndex++;
-              }
-              if(swaraIndex<swarasCount)
-                $('#nextnote').text(carnatic_music_notes[swaraIndex]+' ('+music_play_note[swaraIndex]+')');
-            }
-
-            if(swaraIndex>=swarasCount & flag==0){
-                swaraIndex=0;
-                console.log('mistake',left_node_mistake,right_node_mistake);
-                $('#nextnote').text(carnatic_music_notes[swaraIndex]+' ('+music_play_note[swaraIndex]+')');	
-                tmp_repeatation++;
-                $('#repeat').text(tmp_repeatation);
-            }
-            //console.log(carnatic_music_notes);
-            //console.log('after verification',unique_notes[0],'flag',flag,'swaraIndex',swaraIndex,'left_leaf_node',left_node_mistake,'right_node_mistake',right_node_mistake,'repetation',tmp_repeatation);
-            unique_notes=[unique_notes.pop()];
-            
-          }
-          else{
-            end=1;
-          }
-        }
-        else{
-          end=1;
-        }
-      }
-      else{
-        end=1;
-      }
-  }
-  if (end && music_notes.length<=45){
-    music_notes  = [];
-    unique_notes = [];
-    //tries for 3 times each time it record swara count
-    console.log('repetation',tmp_repeatation,repetation);
-    if(tmp_repeatation>=repetation){
-      console.log('done');
-      tmp_repeatation=0;
-      $('#repeat').text('0');
-      clearInterval(timer);
-      let tmp_index=findLeafNodesIndex(swarasCount,currentIndex);
-      console.log('tmp_index',tmp_index);
-      if(tmp_index==null){
-        if(PrevIndex!=null){
-          tmp_index=PrevIndex;
-          PrevIndex=null;
-          console.log('tmp_index',tmp_index);
-          musicPlayer.pause(tmp_index);	
-        }
-        else
-          musicPlayer.pause(currentIndex+1);
+// musicPlayer.checkPitchs = function(){
+//       let end=1;
+//       let today = new Date();
+//       console.log('music_notes length',music_notes.length," @ "+today.getMinutes() + ":" + today.getSeconds());
+//       console.log('Current Mistake',left_node_mistake,right_node_mistake);
+//       if(music_notes.length>45){
+//         let tmp_notes = music_notes;
+//         music_notes   = [];
+//         let tmp = tmp_notes[0];
+//         let count=1;
+//         let notesequence=[];
+//         let refinednotesequence=[];
+//         let flag=0;
+//         let tmp_len    = unique_notes.length;
         
-        }
-      else
-      {   if(left_node_mistake==0 && right_node_mistake==0)
+//         console.log('tmp_len',tmp_len)
+//         console.log('tmp_notes',tmp_notes);
+        
+//         //ignore noice in stream
+//         for(let i=1;i<tmp_notes.length;i++){
+//           if(tmp!=tmp_notes[i]){
+//             if(count>10) //ignore noice
+//               notesequence.push([tmp,count]);
+//             tmp=tmp_notes[i];
+//             count=1;
+//           }
+//           else
+//             count++;
+//         }
+//         if(count>10)
+//           notesequence.push([tmp,count]);
+//           console.log('notesequence',notesequence);
 
-          {	
-            console.log('no mistake procesing to next node','PrevIndex',PrevIndex,'currentIndex',currentIndex);
-            left_node_mistake=0;
-            right_node_mistake=0;
-            //console.log(currentIndex,typeof(currentIndex),currentIndex,currentIndex+1)
-            if(PrevIndex==null){
-              console.log('moving to currentIndex',currentIndex+1);
-              //console.log(currentIndex,typeof(currentIndex),currentIndex,currentIndex+1)
-              musicPlayer.pause(currentIndex+1);
-            }
-            else{
-              let tmp_index=PrevIndex;
-              PrevIndex=null;
-              console.log('moving to index',tmp_index);
-              musicPlayer.pause(tmp_index);
+//         if(notesequence.length>=1){
+//           tmp=notesequence[0][0];
+//           count=notesequence[0][1];
+//           // console.log(notesequence,tmp,count);
+//           for(let i=1;i<notesequence.length;i++){
+//             if(tmp!=notesequence[i][0]){
+//               if(count>35)
+//                 refinednotesequence.push([notesequence[i][0],notesequence[i][1]]);
+//               tmp=notesequence[i][0];
+//               count=notesequence[i][1];
+//             }
+//             else
+//               count+=notesequence[i][1];
+//           }
 
-            }
-          }
-        else if(left_node_mistake>right_node_mistake){
-            console.log('mistake in left node procesing to next node','PrevIndex',PrevIndex,'currentIndex',currentIndex);
+//           if(count>35)
+//             refinednotesequence.push([tmp,count]);
+//            console.log('refined notes',refinednotesequence);
+
+//           //merge refined note[0] if it exist in  unique last notes
+//         if(refinednotesequence.length>=1){
+//             end = 0 ;
+//             if(tmp_len>=1 && unique_notes[tmp_len-1][0]==refinednotesequence[0][0]){
+//               flag=1;
+//               unique_notes=[[refinednotesequence[0][0],refinednotesequence[0][1]+unique_notes[tmp_len-1][1]]];
+//             }
+//             else
+//               unique_notes=[];
+
+//             for(let i=flag;i<refinednotesequence.length;i++)
+//               unique_notes.push([refinednotesequence[i][0],refinednotesequence[i][1]]);
             
-            left_node_mistake=0;
-            right_node_mistake=0;
-            PrevIndex=currentIndex;
-            let k=parseInt(swarasCount/2);
-            let tmp_notes=carnatic_music_notes.slice(0,k);
-            $('#mistake').text('Mistake in '+tmp_notes.join(' '));
-            $('#mistake').show();
-            setTimeout(function(){$('#mistake').hide()},1500);
-            musicPlayer.pause(tmp_index[0]);
-        }
-        else{
-            console.log('mistake in right node procesing to next node','PrevIndex',PrevIndex,'currentIndex',currentIndex);
-            left_node_mistake=0;
-            right_node_mistake=0;
-            PrevIndex=currentIndex;
-            let k=parseInt(swarasCount/2);
-            let tmp_notes=carnatic_music_notes.slice(k);
-            $('#mistake').text('Mistake in '+tmp_notes.join(' '));
-            $('#mistake').show();
-            setTimeout(function(){$('#mistake').hide()},1500);
-            musicPlayer.pause(tmp_index[1]);	
-        }
-      }
-    }
-  }
-}
+//             //console.log(unique_notes);
+//             if(unique_notes.length>=1 && tmp_repeatation<repetation){
+//               for(let i=flag;i<unique_notes.length;i++){
+//                 //console.log('swaraIndex',swaraIndex);
+//                 if(swaraIndex <swarasCount &&  tmp_repeatation <=repetation && unique_notes[i][0]!=music_play_note[swaraIndex])
+//                 {
+//                   if(swaraIndex<(swarasCount/2))
+//                     left_node_mistake++;
+//                   else
+//                     right_node_mistake++;
+
+//                 console.log('Mistake as occured',left_node_mistake,right_node_mistake);
+                  
+//                 }
+//                 if(swarasCount==1){
+//                   //in case of single swara increment only if it is right
+//                   if(flag==0 && unique_notes[i][0]==music_play_note[swaraIndex]){
+//                     swaraIndex++;
+//                   }
+//                 }
+//                 //incase multiple swara increment for each swara either it is right or wrong
+//                 else{
+//                   swaraIndex++;
+//                 }
+//                 if(swaraIndex<swarasCount)
+//                   $('#nextnote').text(carnatic_music_notes[swaraIndex]+' ('+music_play_note[swaraIndex]+')');
+//               }
+
+//               if(swaraIndex>=swarasCount & flag==0){
+//                   swaraIndex=0;
+//                   console.log('mistake',left_node_mistake,right_node_mistake);
+//                   $('#nextnote').text(carnatic_music_notes[swaraIndex]+' ('+music_play_note[swaraIndex]+')'); 
+//                   tmp_repeatation++;
+//                   $('#repeat').text(tmp_repeatation);
+//               }
+//               //console.log(carnatic_music_notes);
+//               //console.log('after verification',unique_notes[0],'flag',flag,'swaraIndex',swaraIndex,'left_leaf_node',left_node_mistake,'right_node_mistake',right_node_mistake,'repetation',tmp_repeatation);
+//               unique_notes=[unique_notes.pop()];
+              
+//             }
+//         }
+//       }
+//         console.log('End: ',end);
+
+//   }
+//     if (end){
+//       // music_notes  = [];
+//       unique_notes = [];
+//       //tries for 3 times each time it record swara count
+//       // console.log('Stopped ,repetation',tmp_repeatation,repetation);
+//       if(tmp_repeatation>=repetation){
+//         console.log('done');
+//         tmp_repeatation=0;
+//         $('#repeat').text('0');
+//         clearInterval(timer);
+//         let tmp_index=findLeafNodesIndex(swarasCount,currentIndex);
+//         console.log('tmp_index',tmp_index);
+        
+
+//         // Indigates single swara
+//         if(tmp_index==null){
+//           if(PrevIndex!=null){
+//             tmp_index=PrevIndex;
+//             PrevIndex=null;
+//             console.log('tmp_index',tmp_index);
+//             musicPlayer.pause(tmp_index); 
+//           }
+//           else
+//             musicPlayer.pause(currentIndex+1);
+//         }
+//         else
+//         {   if(left_node_mistake==0 && right_node_mistake==0)
+
+//             { 
+//               console.log('no mistake procesing to next node','PrevIndex',PrevIndex,'currentIndex',currentIndex);
+//               //console.log(currentIndex,typeof(currentIndex),currentIndex,currentIndex+1)
+//               if(PrevIndex==null){
+//                 console.log('moving to currentIndex',currentIndex+1);
+//                 //console.log(currentIndex,typeof(currentIndex),currentIndex,currentIndex+1)
+//                 musicPlayer.pause(currentIndex+1);
+//               }
+//               else{
+//                 let tmp_index=PrevIndex;
+//                 PrevIndex=null;
+//                 console.log('moving to index',tmp_index);
+//                 musicPlayer.pause(tmp_index);
+
+//               }
+//             }
+//           else if(left_node_mistake>right_node_mistake){
+//               console.log('mistake in left node procesing to next node','PrevIndex',PrevIndex,'currentIndex',currentIndex);
+              
+//               PrevIndex=currentIndex;
+//               let k=parseInt(swarasCount/2);
+//               let tmp_notes=carnatic_music_notes.slice(0,k);
+//               $('#mistake').text('Mistake in '+tmp_notes.join(' '));
+//               $('#mistake').show();
+//               setTimeout(function(){$('#mistake').hide()},1500);
+//               musicPlayer.pause(tmp_index[0]);
+//           }
+//           else{
+//               console.log('mistake in right node procesing to next node','PrevIndex',PrevIndex,'currentIndex',currentIndex);
+//               PrevIndex=currentIndex;
+//               let k=parseInt(swarasCount/2);
+//               let tmp_notes=carnatic_music_notes.slice(k);
+//               $('#mistake').text('Mistake in '+tmp_notes.join(' '));
+//               $('#mistake').show();
+//               setTimeout(function(){$('#mistake').hide()},1500);
+//               musicPlayer.pause(tmp_index[1]);  
+//           }
+//         }
+//       }
+//     }
+//   }
+
   // Allow direct use in browser or through something like Browserify
 })(typeof exports === 'undefined' ? this.musicPlayer = {} : exports);
 
